@@ -36,6 +36,7 @@ jobs:
           git clone https://github.com/aryankaran/local_manifests.git --depth 1 -b cherish .repo/local_manifests
           df -h .
           repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
+          rm -rf .repo
           df -h .
           # Build Rom
           source build/envsetup.sh
