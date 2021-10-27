@@ -32,7 +32,7 @@ jobs:
           pwd
           mkdir los;cd los
           # sync rom
-          repo init --depth=1 --no-repo-verify -u https://github.com/LineageOS/android.git -b cm-14.1 -g default,-mips,-darwin,-notdefault 2 2>/dev/null 1>/dev/null>/dev/null 1>/dev/null
+          repo init --depth=1 --no-repo-verify -u https://github.com/LineageOS/android.git -b cm-14.1 -g default,-mips,-darwin,-notdefault 2>/dev/null 1>/dev/null
           git clone https://github.com/aryankaran/local_manifests.git --depth 1 -b cm-14.1 .repo/local_manifests 2>/dev/null 1>/dev/null
           df -h .
           echo -e "\n\nTime Taken to sync :"
