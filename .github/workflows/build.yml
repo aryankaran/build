@@ -21,7 +21,7 @@ jobs:
       # Setup the environment
       - name: Environment Setup
         run: |
-          sudo bash -c "$(curl -L https://raw.githubusercontent.com/aryankaran/build-env-setup/main/envsetup.sh  2> /dev/null)" 1>/dev/null 2>/dev/null
+          time sudo bash -c "$(curl -L https://raw.githubusercontent.com/aryankaran/build-env-setup/main/envsetup.sh  2> /dev/null)" 1>/dev/null 2>/dev/null
 
       # Actual Build
       - name: Sync and Build
@@ -35,7 +35,8 @@ jobs:
           repo init --depth=1 --no-repo-verify -u https://github.com/CherishOS-Temp/android_manifest.git -b twelve -g default,-mips,-darwin,-notdefault 2>/dev/null 1>/dev/null
           git clone https://github.com/aryankaran/local_manifests.git --depth 1 -b cherish .repo/local_manifests 2>/dev/null 1>/dev/null
           df -h .
-          repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8 2>/dev/null 1>/dev/null
+          echo -e "\n\nTime Taken to sync :"
+          time repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8 2>/dev/null 1>/dev/null
           rm -rf .repo
           df -h .
           # Build Rom
@@ -43,5 +44,5 @@ jobs:
           export TZ=Asia/Kolkata
           export KBUILD_BUILD_USER=aryan
           export KBUILD_BUILD_HOST=aryankaran
-          brunch onclite
+          time brunch onclite
           curl --upload-file out/target/product/onclite/*.zip trasnfer.sh/$(ls out/target/product/onclite/*.zip | cut -d / -f5)
