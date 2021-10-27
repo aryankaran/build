@@ -32,10 +32,10 @@ jobs:
           pwd
           mkdir cherish;cd cherish
           # Sync rom
-          repo init --depth=1 --no-repo-verify -u https://github.com/CherishOS-Temp/android_manifest.git -b twelve -g default,-mips,-darwin,-notdefault
-          git clone https://github.com/aryankaran/local_manifests.git --depth 1 -b cherish .repo/local_manifests
+          repo init --depth=1 --no-repo-verify -u https://github.com/CherishOS-Temp/android_manifest.git -b twelve -g default,-mips,-darwin,-notdefault 2>/dev/null 1>/dev/null
+          git clone https://github.com/aryankaran/local_manifests.git --depth 1 -b cherish .repo/local_manifests 2>/dev/null 1>/dev/null
           df -h .
-          repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
+          repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8 2>/dev/null 1>/dev/null
           rm -rf .repo
           df -h .
           # Build Rom
