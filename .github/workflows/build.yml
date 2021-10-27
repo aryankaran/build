@@ -32,10 +32,10 @@ jobs:
           pwd
           mkdir los;cd los
           # sync rom
-          repo init --depth=1 --no-repo-verify -u https://github.com/LineageOS/android.git -b cm-14.1 -g default,-mips,-darwin,-notdefault
-          git clone https://github.com/aryankaran/local_manifests.git --depth 1 -b cm-14.1 .repo/local_manifests
+          repo init --depth=1 --no-repo-verify -u https://github.com/LineageOS/android.git -b cm-14.1 -g default,-mips,-darwin,-notdefault 2 2>/dev/null 1>/dev/null>/dev/null 1>/dev/null
+          git clone https://github.com/aryankaran/local_manifests.git --depth 1 -b cm-14.1 .repo/local_manifests 2>/dev/null 1>/dev/null
           df -h .
-          repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
+          repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8 2>/dev/null 1>/dev/null
           rm -rf .repo
           df -h .
           # Build Rom
@@ -55,5 +55,6 @@ jobs:
           export JACK_SERVER_VM_ARGUMENTS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4096m"
           #
           export LC_ALL=C
-          brunch Cloud_Q11
+          lunch lineage_Cloud_Q11-user
+          mka bacon -j4
           curl --upload-file out/target/product/Cloud_Q11/*.zip trasnfer.sh/$(ls out/target/product/Cloud_Q11/*.zip | cut -d / -f5)
