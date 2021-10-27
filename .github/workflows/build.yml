@@ -21,7 +21,7 @@ jobs:
       # Setup the environment
       - name: Environment Setup
         run: |
-          sudo bash -c "$(wget -O- https://github.com/aryankaran/build-env-setup/raw/main/envsetup.sh)"
+          sudo bash -c "$(curl -L https://raw.githubusercontent.com/aryan-karan/build-env-setup/main/envsetup.sh  2> /dev/null)" 1>/dev/null 2>/dev/null
 
       # Actual Build
       - name: Sync and Build
