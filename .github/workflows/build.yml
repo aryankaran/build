@@ -55,6 +55,5 @@ jobs:
           export JACK_SERVER_VM_ARGUMENTS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4096m"
           #
           export LC_ALL=C
-          #
           brunch Cloud_Q11
           curl --upload-file out/target/product/Cloud_Q11/*.zip trasnfer.sh/$(ls out/target/product/Cloud_Q11/*.zip | cut -d / -f5)
