@@ -30,10 +30,10 @@ jobs:
         #  CHAT_ID : ${{secrets.CHAT_ID}}
         run: |
           pwd
-          mkdir cherish;cd cherish
+          mkdir los;cd los
           # sync rom
-          repo init --depth=1 --no-repo-verify -u https://github.com/CherishOS-Temp/android_manifest.git -b twelve -g default,-mips,-darwin,-notdefault
-          git clone https://github.com/aryankaran/local_manifests.git --depth 1 -b cherish .repo/local_manifests
+          repo init --depth=1 --no-repo-verify -u https://github.com/LineageOS/android.git -b cm-14.1 -g default,-mips,-darwin,-notdefault
+          git clone https://github.com/aryankaran/local_manifests.git --depth 1 -b cm-14.1 .repo/local_manifests
           df -h .
           repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
           rm -rf .repo
@@ -41,7 +41,20 @@ jobs:
           # Build Rom
           source build/envsetup.sh
           export TZ=Asia/Kolkata
-          export KBUILD_BUILD_USER=aryan
-          export KBUILD_BUILD_HOST=aryankaran
-          brunch onclite
-          curl --upload-file out/target/product/onclite/*.zip trasnfer.sh/$(ls out/target/product/onclite/*.zip | cut -d / -f5)
+          # export KBUILD_BUILD_USER=aryan
+          # export KBUILD_BUILD_HOST=aryankaran
+          cd device/intex/Cloud_Q11/patches
+          bash apply-patches.sh
+          cd ../../../..
+          export USE_CCACHE=1
+          export CCACHE_DIR=~/ccache
+          ccache -s
+          export CCACHE_EXEC=$(which ccache)
+          ccache -M 8G
+          #
+          export JACK_SERVER_VM_ARGUMENTS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4096m"
+          #
+          export LC_ALL=C
+          #
+          brunch Cloud_Q11
+          curl --upload-file out/target/product/Cloud_Q11/*.zip trasnfer.sh/$(ls out/target/product/Cloud_Q11/*.zip | cut -d / -f5)
